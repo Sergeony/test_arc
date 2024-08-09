@@ -8,7 +8,7 @@ __all__ = [
 
 class ConnectionRouter:
     @staticmethod
-    def patch_connection(
+    def accept_connection(
             request: any,
             connection_id: int,
             connections_service: AbstractConnections = Connections(),

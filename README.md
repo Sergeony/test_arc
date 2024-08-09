@@ -19,8 +19,6 @@
   - Try to avoid `*args` and `**kwargs` if you know possible arguments. Better
        define pydantic model with optional fields.
 
-### Provide implementation in each layer with corresponding interfaces
-
 
 ### Define public API:
 
