@@ -3,7 +3,6 @@ from typing import Generic, TypeVar
 
 import schemas
 import consts
-from ..main_base_repo import MainBaseRepo
 
 
 __all__ = [
@@ -20,7 +19,6 @@ _Entity = TypeVar('_Entity', bound=schemas.IdSchema)
 
 
 class CommonBaseRepo(
-    MainBaseRepo,
     ABC,
     Generic[_GetByIdArgs, _UpdateArgs, _Entity],
 ):
@@ -42,7 +40,7 @@ class CommonBaseRepo(
             _model: any,
             session: any = None,
             _engine: any = None,
-    ) -> None:
+    ):
         """ Define required Repo attributes:
 
             - We need a DB model to use it in all the queries.
@@ -58,23 +56,23 @@ class CommonBaseRepo(
 
     def get_all(self, skip: int = None, limit: int = None) -> list[_Entity]:
         """ Restrict skip -> int, limit -> int and return type -> list[_ModelRead]. """
-        super().get_all(skip, limit)
+        ...
 
-    def get_by_id(self, args: _GetByIdArgs):
+    def get_by_id(self, id: int | str) -> _Entity:
         """ Restrict _id -> int and return type -> _ModelRead. """
-        super().get_by_id(args)
+        ...
 
-    def create(self, args):
+    def create(self, args: _CreateArgs) -> _Entity:
         """ Restrict obj -> _ModelCreate and return type -> _ModelRead. """
-        super().create(args)
+        ...
 
-    def update(self, args: _GetByIdArgs):
+    def update(self, args: _UpdateArgs) -> bool:
         """ Restrict obj -> _ModelUpdate and return type -> _ModelRead | None. """
-        super().update(args)
+        ...
 
-    def delete(self, args: _GetByIdArgs):
+    def delete(self, id: int | str) -> bool:
         """ Restrict _id -> int and return type -> bool | None. """
-        super().delete(args)
+        ...
 
 
 class MerchantBaseRepo(CommonBaseRepo, ABC):

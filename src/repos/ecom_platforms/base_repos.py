@@ -2,7 +2,6 @@ from typing import Generic, TypeVar
 from abc import ABC, abstractmethod
 
 import schemas
-from repos.main_base_repo import MainBaseRepo
 
 
 __all__ = [
@@ -14,13 +13,14 @@ __all__ = [
 
 We bound arguments for queries to have external_id fields (see: schemas.ExternalIdSchema).
 """
-_GetByExternalIdArgs = TypeVar('_GetByExternalIdArgs', bound=schemas.ExternalIdSchema)
+_UpdateArgs = TypeVar("_CreateArgs", bound=schemas.ExternalIdSchema)
+_CreateArgs = TypeVar("_CreateArgs", bound=BaseSchema)
+_Entity = TypeVar("_Entity", bound=schemas.ExternalIdSchema)
 
 
 class CommonBaseRepo(
-    MainBaseRepo,
     ABC,
-    Generic[_GetByExternalIdArgs],
+    Generic[_UpdateArgs, _CreateArgs, _Entity],
 ):
     @abstractmethod
     def __init__(self, shop_url: str, api_key: str):
@@ -28,26 +28,26 @@ class CommonBaseRepo(
         self.api_key = api_key
 
     @abstractmethod
-    def get_all(self, skip: any = None, limit: any = None):
+    def get_all(self, skip: any = None, limit: any = None) -> List[_Entity]:
         """ Keep it as an interface to be implemented in actual EcomPlatform Repo. """
         ...
 
     @abstractmethod
-    def get_by_id(self, args: _GetByExternalIdArgs):
+    def get_by_id(self, external_id: str) -> _Entity:
         """ Keep it as an interface to be implemented in actual EcomPlatform Repo. """
         ...
 
     @abstractmethod
-    def create(self, args):
+    def create(self, args: _CreateArgs) -> _Entity:
         """ Keep it as an interface to be implemented in actual EcomPlatform Repo. """
         ...
 
     @abstractmethod
-    def update(self, args: _GetByExternalIdArgs):
+    def update(self, args: _UpdateArgs) -> bool:
         """ Keep it as an interface to be implemented in actual EcomPlatform Repo. """
         ...
 
     @abstractmethod
-    def delete(self, args):
+    def delete(self, external_id: str) -> bool:
         """ Keep it as an interface to be implemented in actual EcomPlatform Repo. """
         ...

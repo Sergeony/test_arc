@@ -4,10 +4,10 @@
 
 ### Layers
 
-#### We define 4 separated layers (MVC + Repos):
+#### We define 4 separated layers:
 
-1. Routers (Views) - responsible for validating client payload (if it's provided) and calling corresponding services.
-2. Services (Controllers) - responsible for performing business logic, calling Repos for data management.
+1. Routers (Controllers) - responsible for validating client payload (if it's provided) and calling corresponding services.
+2. Services - responsible for performing business logic, calling Repos for data management.
 3. Repos - responsible for interacting with Data Sources, making queries to DB / API services.
 4. Models - responsible to keep the data.
 
