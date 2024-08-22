@@ -1,4 +1,4 @@
-from src.core.interfaces.api.public.connection import ConnectionPostRequest, ConnectionPostResponse
+from src.core.interfaces.api_contracts.public.connection import ConnectionPostRequest, ConnectionPostResponse
 
 __all__ = [
     "router",

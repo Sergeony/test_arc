@@ -1,7 +1,7 @@
 from fastapi import Depends, JsonResponse
 
 from ....core import models
-from ....core.interfaces import api
+from ....core.interfaces import api_contracts
 from ....services.order_service import OrderService
 from ...middleware import auth
 
@@ -11,14 +11,14 @@ __all__ = [
 ]
 
 
-order_router = object(prefix=api.OrderEndpoint)
+order_router = object(prefix=api_contracts.OrderEndpoint)
 
 
 @order_router.post("/")
 def create_order(
-        payload: api.OrderPostRequestBody,
+        payload: api_contracts.OrderPostRequestBody,
         user_id: Depends[auth.get_user_id_from_jwt],
-        q: api.OrderPostRequestQueryParams,
+        q: api_contracts.OrderPostRequestQueryParams,
         order_service: Depends[OrderService],
 ):
     """
@@ -29,13 +29,13 @@ def create_order(
 
     if result is False:
         return JsonResponse(
-            data=api.OrderPostFailedResponseBody,
-            status=api.OrderPostFailedResponseCode,
+            data=api_contracts.OrderPostFailedResponseBody,
+            status=api_contracts.OrderPostFailedResponseCode,
         )
 
-    body: api.OrderPostSuccessResponseBody = result.json()
+    body: api_contracts.OrderPostSuccessResponseBody = result.json()
 
     return JsonResponse(
         data=body,
-        status=api.OrderPostSuccessResponseCode,
+        status=api_contracts.OrderPostSuccessResponseCode,
     )

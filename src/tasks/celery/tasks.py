@@ -1,6 +1,8 @@
-from requests import request
+import aiohttp
 
 from .utils import celery_app
+from ...config import ApiConfig
+from ...core.interfaces.api_contracts.internal import OrderEndpoint, OrderPostRequestBody
 
 
 __all__ = [
@@ -9,8 +11,12 @@ __all__ = [
 
 
 @celery_app.task
-def process_order_task(some_payload: any):
-    response = request.post(
-        url="api/v1/internal/orders",
+def process_order_task(some_payload: OrderPostRequestBody) -> None:
+    """ This task just triggers order processing in the background.
+
+    This way, celery can be even placed on a different server and call out main server api
+    """
+    aiohttp.post(
+        url=f"{ApiConfig.HOST}:{ApiConfig.PORT}/{OrderEndpoint}",
         data=some_payload,
     )

@@ -1,5 +1,5 @@
 from .....core import models
-from .....core.interfaces.data_access.ecom_platform.i_location_repo import ILocationRepo
+from .....core.interfaces.repos.ecom_platform.i_location_repo import ILocationRepo
 from ..client import process_request
 
 

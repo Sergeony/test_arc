@@ -1,4 +1,4 @@
-from src.core.interfaces.data_access.db import IConnectionRepo
+from src.core.interfaces.repos.db import IConnectionRepo
 from ....core import models
 from .. import entities
 
