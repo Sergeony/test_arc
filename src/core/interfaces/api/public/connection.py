@@ -1,0 +1,6 @@
+class ConnectionPostRequest:
+    ...
+
+
+class ConnectionPostResponse:
+    ...
